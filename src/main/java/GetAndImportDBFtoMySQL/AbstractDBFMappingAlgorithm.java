@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.jamel.dbf.DbfReader;
 import java.io.File;
 
-@SuppressWarnings("Duplicates")
+//каркас алгоритма для парсинга dbf-ников в базу
 public abstract class AbstractDBFMappingAlgorithm {
 
     private Session seans;
@@ -23,16 +23,10 @@ public abstract class AbstractDBFMappingAlgorithm {
                 session.beginTransaction();
 
                 Object[] row;
-//                int k=0;
                 while ((row = reader.nextRecord()) != null) {
 
                     IDBFMarkUp dbfEntity=parseDefiniteTable(row);
                     session.save(dbfEntity);
-//                    k++;
-//
-//                    if (k == 2) {
-//                        break;
-//                    }
                 }
 
                 session.getTransaction().commit();
